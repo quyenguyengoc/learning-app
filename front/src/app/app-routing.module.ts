@@ -1,15 +1,24 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, CanActivate } from '@angular/router';
 
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginAuthorizeService } from './services/login-authorize.service'
+import { AuthorizeComponent } from './authorize/authorize.component';
+import { UnauthorizeComponent } from './unauthorize/unauthorize.component';
 
-const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent }
+export const routes: Routes = [
+  {
+    path: '',
+    component: AuthorizeComponent,
+    children: [
+      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+      { path: '', loadChildren: './authorize/authorize.module#AuthorizeModule' }
+    ]
+  },
+  {
+    path: '',
+    canActivate: [LoginAuthorizeService],
+    component: UnauthorizeComponent,
+    children: [
+      { path: 'auth', loadChildren: './unauthorize/unauthorize.module#UnauthorizeModule' }
+    ]
+  }
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
