@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../services/authentication.service'
 import { StatusCodeService } from '../services/status-code.service';
+import { RequestCheckingService } from '../services/request-checking.service';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +18,15 @@ export class LoginComponent implements OnInit {
     login_fail: undefined
   }
 
-  constructor(private authService: AuthenticationService, private statusService: StatusCodeService, private router: Router) { }
+  constructor(
+    private authService: AuthenticationService,
+    private statusService: StatusCodeService,
+    private router: Router,
+    private reqCheckingService: RequestCheckingService
+  ) { }
 
   ngOnInit() {
+    this.reqCheckingService.isLoading.next(false);
   }
 
   login(event: any) {
