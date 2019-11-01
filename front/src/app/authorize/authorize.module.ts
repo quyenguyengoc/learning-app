@@ -6,6 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthRoutes } from './authorize-routing.module';
 
 import { DashboardComponent } from '../dashboard/dashboard.component';
+import { LogoutComponent } from '../logout/logout.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
     NgbModule
   ],
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    LogoutComponent
   ]
 })
 export class AuthorizeModule {}
