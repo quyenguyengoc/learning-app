@@ -3,6 +3,7 @@ import { Router, CanActivate, RouterStateSnapshot, ActivatedRouteSnapshot } from
 
 import { AuthenticationService } from './authentication.service';
 import { StatusCodeService } from './status-code.service';
+import { NotifierMakerService } from './notifier-maker.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class RequiredLoginService implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const user_token = localStorage.getItem('user_token');
     let next_state: string = state.url;
+    let redirectTo: string = undefined;
     if (user_token) {
       this.authService.authenticate()
         .subscribe((response: { status: string; data: any } ) => {
@@ -27,19 +29,23 @@ export class RequiredLoginService implements CanActivate {
             localStorage.removeItem('user_token');
             localStorage.removeItem('username');
             if (this.loginRequiredScreens(state.url)) {
+              redirectTo = state.url;
+              this.notifierMakerService.notify('Please login first!', 'warning');
               next_state = '/auth/login';
             }
           }
           if (next_state !== state.url) {
-            this.router.navigate([next_state]);
+            this.router.navigate([next_state], { queryParams: { redirectTo: redirectTo } });
           }
         })
     } else {
       if (this.loginRequiredScreens(state.url)) {
+        redirectTo = state.url;
+        this.notifierMakerService.notify('Please login first!', 'warning');
         next_state = '/auth/login';
       }
       if (next_state !== state.url) {
-        this.router.navigate([next_state]);
+        this.router.navigate([next_state], { queryParams: { redirectTo: redirectTo } });
       }
     }
     return true;
@@ -48,6 +54,7 @@ export class RequiredLoginService implements CanActivate {
   constructor(
     private router: Router, 
     private authService: AuthenticationService, 
-    private statusService: StatusCodeService
+    private statusService: StatusCodeService,
+    private notifierMakerService: NotifierMakerService
   ) { }
 }

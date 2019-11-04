@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { JwtModule } from "@auth0/angular-jwt";
+import { JwtModule } from '@auth0/angular-jwt';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NotifierModule } from 'angular-notifier';
 
 import { routes } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 import { SpinnerInterCeptor } from './spinner-interceptor';
 import { environment } from 'src/environments/environment';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 export function tokenGetter() {
   return localStorage.getItem('user_token');
@@ -29,7 +31,8 @@ export function tokenGetter() {
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,19 @@ export function tokenGetter() {
         tokenGetter: tokenGetter,
         whitelistedDomains: ['localhost:4200', 'localhost:3000'],
         blacklistedRoutes: [environment.apiUrl + '/login']
+      }
+    }),
+    NotifierModule.withConfig({
+      position: {
+        horizontal: {
+          position: 'right'
+        },
+        vertical: {
+          position: 'top'
+        }
+      },
+      behaviour: {
+        showDismissButton: false
       }
     })
   ],
