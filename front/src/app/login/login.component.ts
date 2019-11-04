@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthenticationService } from '../services/authentication.service'
 import { StatusCodeService } from '../services/status-code.service';
 import { RequestCheckingService } from '../services/request-checking.service';
+import { NotifierMakerService } from '../services/notifier-maker.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,9 @@ export class LoginComponent implements OnInit {
     private authService: AuthenticationService,
     private statusService: StatusCodeService,
     private router: Router,
-    private reqCheckingService: RequestCheckingService
+    private route: ActivatedRoute,
+    private reqCheckingService: RequestCheckingService,
+    private notifierMakerService: NotifierMakerService
   ) { }
 
   ngOnInit() {
@@ -37,7 +40,8 @@ export class LoginComponent implements OnInit {
       if (this.statusService.is_success(response.status)) {
         localStorage.setItem('user_token', response.data.token);
         localStorage.setItem('username', response.data.username);
-        this.router.navigate(['/'])
+        this.notifierMakerService.notify('Login successfully!', 'success');
+        this.router.navigate([this.route.snapshot.queryParams.redirectTo]);
       } else {
         if (response.data.message.attributes) {
           this.error_messages = {

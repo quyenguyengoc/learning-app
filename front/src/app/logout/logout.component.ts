@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RequestCheckingService } from '../services/request-checking.service';
 import { Subject } from 'rxjs';
+import { NotifierMakerService } from '../services/notifier-maker.service';
 
 
 @Component({
@@ -10,14 +11,17 @@ import { Subject } from 'rxjs';
   styles: []
 })
 export class LogoutComponent implements OnInit {
-  isLoading: Subject<boolean> = this.reqCheckingService.isLoading;
-
-  constructor(private router: Router, private reqCheckingService: RequestCheckingService) { }
+  constructor(
+    private router: Router,
+    private reqCheckingService: RequestCheckingService,
+    private notifierMakerService: NotifierMakerService
+    ) { }
 
   ngOnInit() {
-    this.isLoading.next(true);
+    this.reqCheckingService.isLoading.next(true);
     localStorage.removeItem('username');
     localStorage.removeItem('user_token');
+    this.notifierMakerService.notify('Logout successfully!', 'success');
     this.router.navigate(['/auth/login']);
   }
 
