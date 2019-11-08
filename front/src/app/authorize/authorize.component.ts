@@ -10,16 +10,17 @@ import { BehaviorSubject } from 'rxjs';
 })
 
 export class AuthorizeComponent implements OnInit {
-  notify: BehaviorSubject<{ content: string; type: string }> = this.notifierMakerService.notifier;
 
   constructor(private notifier: NotifierService, private notifierMakerService: NotifierMakerService) {
     this.notifier.hideAll();
-    if (this.notify.value) {
-      const content = this.notify.value.content;
-      const type = this.notify.value.type;
-      this.notifier.notify(type, content);
-      this.notify.next(undefined);
-    }
+    this.notifierMakerService.notifier.subscribe((notifier: { content: string; type: string } ) => {
+      if (notifier) {
+        const content = notifier.content;
+        const type = notifier.type;
+        this.notifier.notify(type, content);
+        this.notifierMakerService.notifier.next(undefined);
+      }
+    })
   }
 
   ngOnInit() { }

@@ -34,14 +34,7 @@ ActiveRecord::Schema.define(version: 2019_11_05_022922) do
     t.string "radical"
     t.string "on_pron"
     t.string "kun_pron"
-    t.integer "level_id"
     t.text "mean"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "lessons", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
     t.integer "level_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -56,23 +49,16 @@ ActiveRecord::Schema.define(version: 2019_11_05_022922) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "vocab_lesson_relas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "vocab_id"
-    t.integer "lesson_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "vocabularies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "hira_text"
-    t.string "kata_text"
-    t.text "roma_text"
-    t.text "kanji"
+    t.string "kana_text"
+    t.string "roma_text"
+    t.string "kanji"
     t.text "kanji_ids"
     t.integer "alpha_type"
     t.text "vocab_form_ids"
     t.text "refer_ids"
     t.string "mean"
+    t.integer "level_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

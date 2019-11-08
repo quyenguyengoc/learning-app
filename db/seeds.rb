@@ -14,4 +14,5 @@ user = {
   role: 0
 }
 
+puts "create user"
 User.create(user)
