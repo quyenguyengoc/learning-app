@@ -13,7 +13,7 @@ export class StatusCodeService {
 
   constructor() { }
 
-  is_success(status: string) {
+  isSuccess(status: string) {
     return status === this.STATUS.ok;
   }
 }

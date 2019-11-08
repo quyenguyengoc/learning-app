@@ -5,8 +5,8 @@ class CreateKanjis < ActiveRecord::Migration[5.2]
       t.string :radical
       t.string :on_pron
       t.string :kun_pron
-      t.integer :level_id
       t.text :mean
+      t.integer :level_id
 
       t.timestamps
     end

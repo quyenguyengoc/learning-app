@@ -52,7 +52,7 @@ export function tokenGetter() {
           position: 'right'
         },
         vertical: {
-          position: 'top'
+          position: 'bottom'
         }
       },
       behaviour: {

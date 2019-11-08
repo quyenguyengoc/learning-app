@@ -1,4 +1,5 @@
 class Api::SessionsController < ApplicationController
+  skip_before_action :token_authorize
 
   def create
     begin

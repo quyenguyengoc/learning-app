@@ -37,11 +37,11 @@ export class LoginComponent implements OnInit {
     const username = event.target.querySelector('#username').value;
     const password = event.target.querySelector('#password').value;
     this.authService.login(username, password).subscribe((response: {status: string; data: any}) => {
-      if (this.statusService.is_success(response.status)) {
+      if (this.statusService.isSuccess(response.status)) {
         localStorage.setItem('user_token', response.data.token);
         localStorage.setItem('username', response.data.username);
         this.notifierMakerService.notify('Login successfully!', 'success');
-        this.router.navigate([this.route.snapshot.queryParams.redirectTo]);
+        this.router.navigate([this.route.snapshot.queryParams.redirectTo || '/']);
       } else {
         if (response.data.message.attributes) {
           this.error_messages = {

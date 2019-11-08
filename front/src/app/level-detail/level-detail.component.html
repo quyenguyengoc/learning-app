@@ -1,0 +1,98 @@
+<div class="row">
+  <div class="col-md-4 grid-margin stretch-card">
+    <div class="card topic" (click)="topicChanged('vocab')">
+      <div class="card-body" [class.current-topic]="topic==='vocab'">
+        <h4 class="card-title">Top aligned media</h4>
+        <div class="media">
+          <img alt="" class="img-sm mb-4 mb-md-0 text-info d-flex align-self-center mr-3"
+            src="assets/images/lessons/2.png">
+          <div class="media-body">
+            <p class="card-text">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 grid-margin stretch-card">
+    <div class="card topic" (click)="topicChanged('grammar')">
+      <div class="card-body" [class.current-topic]="topic==='grammar'">
+        <h4 class="card-title">Center aligned media</h4>
+        <div class="media">
+          <img alt="" class="img-sm mb-4 mb-md-0 text-info d-flex align-self-center mr-3"
+            src="assets/images/lessons/3.png">
+          <div class="media-body">
+            <p class="card-text">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 grid-margin stretch-card">
+    <div class="card topic" (click)="topicChanged('kanji')">
+      <div class="card-body" [class.current-topic]="topic==='kanji'">
+        <h4 class="card-title">Bottom aligned media</h4>
+        <div class="media">
+          <img alt="" class="img-sm mb-4 mb-md-0 text-info d-flex align-self-center mr-3"
+            src="assets/images/lessons/1.png">
+          <div class="media-body">
+            <p class="card-text">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="isVocab()">
+  <div class="col-md-2 grid-margin stretch-card" *ngFor="let vocab of data.vocabs">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <img class="img-fluid w-100 rounded" src="assets/images/lessons/1.png" alt="">
+          </div>
+          <div class="col-md-8">
+            <h5 class="mb-3" [textContent]="vocab.kana_text"></h5>
+            <p [textContent]="vocab.meaning"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="isKanji()">
+  <div class="col-md-2 grid-margin stretch-card" *ngFor="let vocab of data.vocabs">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <img class="img-fluid w-100 rounded" src="assets/images/lessons/1.png" alt="">
+          </div>
+          <div class="col-md-8">
+            <h5 class="mb-3" [textContent]="vocab.kana_text"></h5>
+            <p [textContent]="vocab.meaning"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="isGrammar()">
+  <div class="col-md-2 grid-margin stretch-card" *ngFor="let vocab of data.vocabs">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <img class="img-fluid w-100 rounded" src="assets/images/lessons/1.png" alt="">
+          </div>
+          <div class="col-md-8">
+            <h5 class="mb-3" [textContent]="vocab.kana_text"></h5>
+            <p [textContent]="vocab.meaning"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
