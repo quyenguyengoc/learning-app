@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_05_022922) do
+ActiveRecord::Schema.define(version: 2019_11_19_071337) do
 
   create_table "examples", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
@@ -40,6 +40,22 @@ ActiveRecord::Schema.define(version: 2019_11_05_022922) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "lesson_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_lesson_id"
+    t.integer "topicable_id"
+    t.integer "topicable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_lessons", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "level_id"
+    t.integer "percent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "username"
@@ -51,12 +67,10 @@ ActiveRecord::Schema.define(version: 2019_11_05_022922) do
 
   create_table "vocabularies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "kana_text"
-    t.string "roma_text"
-    t.string "kanji"
+    t.text "kanjis"
     t.text "kanji_ids"
-    t.integer "alpha_type"
-    t.text "vocab_form_ids"
-    t.text "refer_ids"
+    t.string "vocab_form"
+    t.text "vocab_form_details"
     t.string "mean"
     t.integer "level_id"
     t.datetime "created_at", null: false

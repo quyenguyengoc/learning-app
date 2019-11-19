@@ -16,3 +16,30 @@ user = {
 
 puts "create user"
 User.create(user)
+
+puts "create vocabs"
+
+vocabs = [
+  {
+    kana_text: 'みる',
+    kanjis: ['診る', '見る'],
+    kanji_ids: ['診', '見'],
+    vocab_form: :verb,
+    vocab_form_details: ['Tha động từ', 'V2'],
+    mean: 'nhìn, kiểm tra, khám',
+    level_id: 4
+  },
+  {
+    kana_text: 'さがす',
+    kanjis: ['探す', '捜す'],
+    kanji_ids: ['探', '捜'],
+    vocab_form: :verb,
+    vocab_form_details: ['Tha động từ', 'V1'],
+    mean: 'tìm kiếm',
+    level_id: 4
+  }
+]
+
+vocabs.each do |v|
+  Vocabulary.create! v
+end
