@@ -8,8 +8,8 @@ import { AuthRoutes } from './authorize-routing.module';
 
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { LogoutComponent } from '../logout/logout.component';
-import { LevelComponent } from '../level/level.component';
-import { LevelDetailComponent } from '../level-detail/level-detail.component';
+import { LessonComponent } from '../lesson/lesson.component';
+import { LessonDetailComponent } from '../lesson-detail/lesson-detail.component';
 
 @NgModule({
   imports: [
@@ -21,8 +21,8 @@ import { LevelDetailComponent } from '../level-detail/level-detail.component';
   declarations: [
     DashboardComponent,
     LogoutComponent,
-    LevelComponent,
-    LevelDetailComponent
+    LessonComponent,
+    LessonDetailComponent
   ]
 })
 export class AuthorizeModule {}

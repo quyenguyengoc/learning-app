@@ -19,7 +19,7 @@ class ApplicationController < ActionController::API
 
   def token_authorize
     begin
-      @request = RequestHandlerService.new(self.request.headers).token_authenticate
+      @current_user ||= RequestHandlerService.new(self.request.headers).token_authenticate
     rescue
       json_response({ status: :unauthorized, data: nil })
     end
