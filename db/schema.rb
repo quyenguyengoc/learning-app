@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2019_11_19_071337) do
     t.integer "user_id"
     t.integer "level_id"
     t.integer "percent"
+    t.string "topics"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
