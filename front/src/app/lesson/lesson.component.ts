@@ -1,31 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { LevelService } from '../services/level.service';
+import { LessonService } from '../services/lesson.service';
 import { StatusCodeService } from '../services/status-code.service';
 import { Router } from '@angular/router';
 import { NotifierMakerService } from '../services/notifier-maker.service';
-import { Level } from '../interfaces/level';
+import { Lesson } from '../interfaces/lesson';
 
 @Component({
-  selector: 'app-level',
-  templateUrl: './level.component.html',
-  styleUrls: ['./level.component.scss']
+  selector: 'app-lesson',
+  templateUrl: './lesson.component.html',
+  styleUrls: ['./lesson.component.scss']
 })
-export class LevelComponent implements OnInit {
-  
-  levels: [Level];
+export class LessonComponent implements OnInit {
+
+  lessons: [Lesson];
 
   constructor(
-    private levelService: LevelService,
+    private lessonService: LessonService,
     private statusService: StatusCodeService,
     private notifierMakerService: NotifierMakerService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.levelService.levels()
+    this.lessonService.lessons()
       .subscribe((response: {status: string; data: any}) => {
         if (this.statusService.isSuccess(response.status)) {
-          this.levels = response.data.levels;
+          this.lessons = response.data.lessons;
+          console.log(this.lessons)
         } else {
           this.notifierMakerService.notify('Errors!', 'error');
           this.router.navigate(['']);

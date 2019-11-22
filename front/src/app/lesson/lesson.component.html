@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-9">
+    <div class="row">
+      <div class="col-md-4 grid-margin stretch-card" *ngFor="let lesson of lessons">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title"><a [routerLink]="[lesson.id]" [textContent]="lesson.name"></a></h4>
+            <div class="template-demo">
+              <div class="d-flex justify-content-end">
+                <a [routerLink]="[lesson.id]">
+                  <small *ngIf="!lesson.percent">Start &raquo;</small>
+                  <small *ngIf="lesson.percent">Continue &raquo;</small>
+                </a>
+              </div>
+              <div class="progress progress-lg">
+                <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
+                  role="progressbar" aria-valuenow="lesson.percent" [style.width]="lesson.percent+'%'"
+                  [textContent]="lesson.percent+'%'" [class.text-primary]="!lesson.percent" [class.text-dark]="lesson.percent">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-body">
+      </div>
+    </div>
+  </div>
+</div>

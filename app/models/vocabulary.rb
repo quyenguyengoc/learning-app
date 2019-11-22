@@ -1,11 +1,12 @@
 class Vocabulary < ApplicationRecord
-  include LevelAble, ExampleAble
+  include LevelAble
 
   VOCAB_FORMS = { noun: 'Noun', verb: 'Verb', adj: 'Adjective', adv: 'Adverb', prep: 'Prepositions' }
 
   has_many   :lessons, as: :topicable, dependent: :destroy
   has_many   :active_refers, class_name: 'VocabularyRefer', foreign_key: :vocab_id, dependent: :destroy
   has_many   :refers, through: :active_refers, source: :refer_vocab
+  has_many   :examples, class_name: 'ExampleAble', as: :exampleable, dependent: :destroy
   has_one    :image, as: :imageable, dependent: :destroy
 
   serialize :kanjis

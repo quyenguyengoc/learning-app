@@ -1,10 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'csv'
 
 user = {
   username: 'quyennn',
@@ -17,29 +11,34 @@ user = {
 puts "create user"
 User.create(user)
 
-puts "create vocabs"
-
-vocabs = [
-  {
-    kana_text: 'みる',
-    kanjis: ['診る', '見る'],
-    kanji_ids: ['診', '見'],
-    vocab_form: :verb,
-    vocab_form_details: ['Tha động từ', 'V2'],
-    mean: 'nhìn, kiểm tra, khám',
-    level_id: 4
-  },
-  {
-    kana_text: 'さがす',
-    kanjis: ['探す', '捜す'],
-    kanji_ids: ['探', '捜'],
-    vocab_form: :verb,
-    vocab_form_details: ['Tha động từ', 'V1'],
-    mean: 'tìm kiếm',
-    level_id: 4
+kanji_data = File.read(Rails.root.join('db', 'data', 'kanji_basic_lnl.csv'))
+CSV.parse(kanji_data, headers: true).each do |row|
+  kanji_data = {
+    kanji_text: row['kanji_text'],
+    radical:    row['radical'].split('; '),
+    kanji_pron: row['kanji_pron'].split('; '),
+    on_pron:    row['on_pron'].split('; '),
+    kun_pron:   row['kun_pron'].split('; '),
+    mean:       row['mean'],
+    memo:       row['memo'].split('; '),
+    level_id:   row['level_id']
   }
-]
+  kanji = Kanji.create(kanji_data)
+  puts "create kanji #{kanji.kanji_text}"
+  example_ids = row['examples'].split('; ').map do |ex|
+    example = Example.find_or_initialize_by(content: ex)
+    example.save
+    { example_id: example.id }
+  end
+  kanji.examples.create(example_ids)
+end
 
-vocabs.each do |v|
-  Vocabulary.create! v
+puts "create lesson"
+User.all.each do |user|
+  5.times do
+    lesson = user.lessons.create(topics: [:kanji], name: Faker::Games::Pokemon.name)
+    Kanji.order('RAND()').limit(10).each do |k|
+      k.lessons.create(lesson: lesson)
+    end
+  end
 end

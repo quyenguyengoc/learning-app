@@ -10,13 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_19_071337) do
+ActiveRecord::Schema.define(version: 2019_11_20_073959) do
+
+  create_table "example_ables", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "example_id"
+    t.integer "exampleable_id"
+    t.string "exampleable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "examples", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
     t.text "mean"
-    t.text "target_ids"
-    t.string "target_class"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -32,9 +38,11 @@ ActiveRecord::Schema.define(version: 2019_11_19_071337) do
   create_table "kanjis", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "kanji_text"
     t.string "radical"
+    t.string "kanji_pron"
     t.string "on_pron"
     t.string "kun_pron"
     t.text "mean"
+    t.string "memo"
     t.integer "level_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -43,15 +51,16 @@ ActiveRecord::Schema.define(version: 2019_11_19_071337) do
   create_table "lesson_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_lesson_id"
     t.integer "topicable_id"
-    t.integer "topicable_type"
+    t.string "topicable_type"
+    t.integer "step", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "user_lessons", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
     t.integer "user_id"
-    t.integer "level_id"
-    t.integer "percent"
+    t.integer "percent", default: 0
     t.string "topics"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

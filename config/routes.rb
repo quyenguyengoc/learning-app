@@ -3,10 +3,10 @@ Rails.application.routes.draw do
   namespace :api do
     post '/login' => 'sessions#create'
     resource :auth, only: :show
-    
-    scope :levels do
-      get '' => 'levels#index'
-      get '/:id' => 'levels#show'
+
+    scope :lessons do
+      get '' => 'lessons#index'
+      get '/:id' => 'lessons#show'
     end
   end
 end
