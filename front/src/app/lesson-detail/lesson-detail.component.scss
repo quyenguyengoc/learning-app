@@ -1,0 +1,28 @@
+@import '../../styles';
+
+div.quiz-box {
+  margin-top: 20px;
+  div.answers-box {
+    div.answer-box {
+      width: 49%;
+      cursor: pointer;
+      margin-top: 10px !important;
+
+      &:nth-child(odd) {
+        margin-right: 1%;
+      }
+
+      &:nth-child(even) {
+        margin-left: 1%;
+      }
+    }
+
+    div.correct-ans {
+      background-color: #7ee787 !important;
+    }
+
+    div.incorrect-ans {
+      background-color: #ff6673 !important;
+    }
+  }
+}

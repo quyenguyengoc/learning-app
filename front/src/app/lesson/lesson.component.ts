@@ -26,7 +26,6 @@ export class LessonComponent implements OnInit {
       .subscribe((response: {status: string; data: any}) => {
         if (this.statusService.isSuccess(response.status)) {
           this.lessons = response.data.lessons;
-          console.log(this.lessons)
         } else {
           this.notifierMakerService.notify('Errors!', 'error');
           this.router.navigate(['']);
