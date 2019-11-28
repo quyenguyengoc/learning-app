@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
@@ -15,9 +15,8 @@ export class LessonService {
     return this.http.get<{status: string; data: any}>(API_URL + '/lessons')
   }
 
-  lesson(params: { lesson_id: number, topic: string }): Observable<{status: string; data: any}> {
-    let topic = new HttpParams().set('topic', params.topic);
-    return this.http.get<{status: string; data: any}>(API_URL + '/lessons/' + params.lesson_id, { params: topic })
+  lesson(id: number): Observable<{status: string; data: any}> {
+    return this.http.get<{status: string; data: any}>(API_URL + '/lessons/' + id)
   }
 
   constructor(private http: HttpClient) { }

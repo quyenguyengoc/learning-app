@@ -13,7 +13,7 @@ class UserLesson < ApplicationRecord
   serialize :topics
 
   def detail
-    Hash[self.topics.map {|topic| [topic, lesson_details.includes(:topicable)._topicable_type(TOPICS[topic]).map(&:with_topic)]}]
+    Hash[self.topics.map {|topic| [topic, lesson_details.includes(:topicable)._topicable_type(TOPICS[topic]).shuffle.map(&:with_topic)]}]
   end
 end
 
