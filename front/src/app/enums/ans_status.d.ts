@@ -1,0 +1,1 @@
+export const enum ANS_STATUS  { NOTANSWER, INCORRECT, CORRECT }

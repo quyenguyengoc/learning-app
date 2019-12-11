@@ -4,9 +4,10 @@ Rails.application.routes.draw do
     post '/login' => 'sessions#create'
     resource :auth, only: :show
 
-    scope :lessons do
-      get '' => 'lessons#index'
-      get '/:id' => 'lessons#show'
+    resources :lessons, only: [:index, :show] do
+      member do
+        resources :lesson_details, only: :update
+      end
     end
   end
 end

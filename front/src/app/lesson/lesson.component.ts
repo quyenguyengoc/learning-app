@@ -3,7 +3,7 @@ import { LessonService } from '../services/lesson.service';
 import { StatusCodeService } from '../services/status-code.service';
 import { Router } from '@angular/router';
 import { NotifierMakerService } from '../services/notifier-maker.service';
-import { Lesson } from '../interfaces/lesson';
+import { Lesson } from '../classes/lesson';
 
 @Component({
   selector: 'app-lesson',
@@ -25,7 +25,9 @@ export class LessonComponent implements OnInit {
     this.lessonService.lessons()
       .subscribe((response: {status: string; data: any}) => {
         if (this.statusService.isSuccess(response.status)) {
-          this.lessons = response.data.lessons;
+          this.lessons = response.data.lessons.map((lesson: any) => {
+            return new Lesson(lesson);
+          });
         } else {
           this.notifierMakerService.notify('Errors!', 'error');
           this.router.navigate(['']);

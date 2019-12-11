@@ -48,7 +48,12 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/raphael/raphael.min.js",
+              "node_modules/dmak/dist/jquery.dmak.js",
+              "node_modules/dmak/dist/dmak.min.js"
+            ]
           },
           "configurations": {
             "production": {
