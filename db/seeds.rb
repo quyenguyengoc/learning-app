@@ -13,10 +13,17 @@ User.create(user)
 
 kanji_data = File.read(Rails.root.join('db', 'data', 'kanji_basic_lnl.csv'))
 CSV.parse(kanji_data, headers: true).each do |row|
+  radical = row['radical'].split('; ').map do |r|
+    rad =  r.split(' | ')
+    {
+      label: rad.length === 2 ? rad.last : nil,
+      value: rad.first
+    }
+  end
   kanji_data = {
     kanji_text: row['kanji_text'],
-    radical:    row['radical'].split('; '),
-    kanji_pron: row['kanji_pron'].split('; '),
+    radical:    radical,
+    kanji_pron: row['kanji_pron'].split(', '),
     on_pron:    row['on_pron'].split('; '),
     kun_pron:   row['kun_pron'].split('; '),
     mean:       row['mean'],
@@ -26,11 +33,12 @@ CSV.parse(kanji_data, headers: true).each do |row|
   kanji = Kanji.create(kanji_data)
   puts "create kanji #{kanji.kanji_text}"
   example_ids = row['examples'].split('; ').map do |ex|
-    example = Example.find_or_initialize_by(content: ex)
+    content, mean = ex.split(/[()]+/)
+    example = Example.find_or_initialize_by(content: content.strip, mean: mean.strip)
     example.save
     { example_id: example.id }
   end
-  kanji.examples.create(example_ids)
+  kanji.example_ables.create(example_ids)
 end
 
 puts "create lesson"
