@@ -3,7 +3,12 @@ module JsonAble
 
   included do
     def as_json(attrs=nil)
-      Hash[(attrs || self.class::DEFAULT_ATTRS).map {|attr| [attr, self.send(attr)]}]
+      attrs = self.class::DEFAULT_ATTRS unless attrs
+      Hash[
+        attrs.map do |attr|
+          self.class.reflect_on_association(attr) ? [attr, self.send(attr).as_json] : [attr, self.send(attr)]
+        end
+      ]
     end
   end
 end
