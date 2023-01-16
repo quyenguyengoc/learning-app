@@ -21,7 +21,7 @@ export class RequiredLoginService implements CanActivate {
     if (user_token) {
       this.authService.authenticate()
         .subscribe((response: { status: string; data: any } ) => {
-          if (this.statusService.is_success(response.status)) {
+          if (this.statusService.isSuccess(response.status)) {
             if (!this.loginRequiredScreens(state.url)) {
               next_state = '/dashboard';
             }

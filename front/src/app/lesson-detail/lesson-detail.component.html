@@ -1,0 +1,77 @@
+<div class="row d-flex align-items-center" *ngIf="lesson">
+  <div class="col-md-12">
+    <div class="card card-statistics">
+      <div class="card-body">
+        <div class="template-demo">
+          <div class="d-flex justify-content-between">
+            <div class="card card-kanji-list w-100">
+              <div class="card-body p-0">
+                <div class="d-flex card-kanji">
+                  <div class="card-kanji-item" *ngFor="let kanji of lesson.detail.kanji"
+                    [class.active]="kanji.id === currentTopic.id"
+                    (click)="generateTopic(kanji)">
+                    <p class="mb-1 display-3" [textContent]="kanji.topic.kanji_text"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-12 grid-margin stretch-card draw-box mt-3">
+    <div class="card">
+      <div class="card-body d-flex align-items-center justify-content-center">
+        <div class="template-demo" id="draw">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6 grid-margin stretch-card mt-3 main-content">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-center align-items-center">
+          <h1 class="display-1 dosic-font" [textContent]="currentTopic.topic.kanji_text + ' - ' + currentTopic.topic.kanji_pron.join(', ')"></h1>
+        </div>
+        <p class="card-description dosic-font">
+          Ý nghĩa: <span class="text-primary" [textContent]="currentTopic.topic.mean"></span>
+        </p>
+        <p class="card-description dosic-font" *ngIf="currentTopic.topic.on_pron.length">
+          Onyomi: <span class="pron on-pron" *ngFor="let on of currentTopic.topic.on_pron" [textContent]="on"></span>
+        </p>
+        <p class="card-description dosic-font" *ngIf="currentTopic.topic.kun_pron.length">
+          Kunyomi: <span class="pron kun-pron" *ngFor="let kun of currentTopic.topic.kun_pron" [textContent]="kun"></span>
+        </p>
+        <p class="card-description dosic-font" *ngIf="currentTopic.topic.radical.length">
+          Bộ thủ:
+          <span class="pron kun-pron" *ngFor="let radical of currentTopic.topic.radical"
+            [textContent]="radical.value" placement="top" [ngbTooltip]="radical.label">
+          </span>
+        </p>
+        <p class="card-description dosic-font" *ngIf="currentTopic.topic.memo.length">
+          Memo:
+        </p>
+        <ul class="list-star ml-3" *ngIf="currentTopic.topic.memo.length">
+          <li *ngFor="let memo of currentTopic.topic.memo" [textContent]="memo"></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6 grid-margin stretch-card mt-3 examples">
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive topic-example-box">
+          <table class="table table-striped">
+            <tbody>
+              <tr *ngFor="let example of currentTopic.topic.examples">
+                <td class="py-1" [textContent]="example.content"></td>
+                <td [textContent]="example.mean"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

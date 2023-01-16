@@ -1,0 +1,76 @@
+@import '../../styles';
+
+div.card-kanji-list {
+  background: #e1ecff;
+  background-image: linear-gradient(to left bottom, #d6eef6, #dff0fa, #e7f3fc, #eff6fe, #f6f9ff);
+  div.card-body {
+    background: $white;
+  }
+  div.card-kanji {
+    background: $white;
+    overflow-x: auto;
+    div.card-kanji-item {
+      cursor: pointer;
+      flex: 0 0 10%;
+      border-right: 1px solid $border-color;
+      padding: 1rem;
+      text-align: center;
+      &:last-child {
+        border-right: 0;
+      }
+      &.active {
+        background-color: #55acee;
+        color: #eee;
+      }
+    }
+  }
+}
+
+div.draw-box, div.main-content, div.examples {
+  min-height: 400px !important;
+}
+
+.pron {
+  padding: 3px 10px;
+  line-height: 13px;
+  color: #eee;
+  font-weight: 400;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 12px;
+  display: inline-block;
+  margin-left: 5px;
+
+  &.on-pron {
+    background-color: #33b874;
+  }
+
+  &.kun-pron {
+    background-color: #52b1a9;
+  }
+}
+
+div.topic-example-box {
+  height: 300px;
+  overflow-y: auto;
+  position: relative;
+
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #000000;
+  }
+
+  &>table>tbody>tr>td {
+    font-size: 16px;
+  }
+}

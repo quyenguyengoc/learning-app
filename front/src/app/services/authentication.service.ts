@@ -13,11 +13,11 @@ export class AuthenticationService {
 
   login(username: string, password: string): Observable<{status: string; data: any}> {
     return this.http
-             .post<any>(API_URL + '/login', { login: { username: username, password: password } })
+             .post<{status: string; data: any}>(API_URL + '/login', { login: { username: username, password: password } })
   }
 
   authenticate(): Observable<{status: string; data: any}> {
-    return this.http.get<any>(API_URL + '/auth');
+    return this.http.get<{status: string; data: any}>(API_URL + '/auth');
   }
 
   constructor(private http: HttpClient) { }
